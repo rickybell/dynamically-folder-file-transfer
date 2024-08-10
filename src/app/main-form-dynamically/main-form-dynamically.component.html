@@ -1,0 +1,30 @@
+<H2>Dynamically Form</H2>
+
+
+<main class="px-4">
+    <h2 class="display-4 mb-4 mt-4">Place your order</h2>
+    <form [formGroup]="dynamicForm">
+      <select id="endPointType" formControlName="endPointType"  >
+        <option>http</option>
+        <option>sftp</option>
+        <option>api</option>
+       </select> 
+        @for (field of formFields; track $index) {
+          <div class="form-group">
+          <label [for]="field.name">{{field.description}}
+            @if (field.required) {
+              <span class="text-danger">*</span>
+            }
+          </label>
+          <input 
+            [type]="field.type" 
+            [id]="field.name" 
+            [name]="field.name" 
+            [formControlName]="field.name" 
+            class="form-control" 
+            [placeholder]="field.description"> 
+          </div>
+        }
+      <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </form>
+  </main>

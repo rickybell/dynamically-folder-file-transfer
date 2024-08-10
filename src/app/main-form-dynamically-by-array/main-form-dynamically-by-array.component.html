@@ -1,0 +1,41 @@
+<H2>Dynamically Form Array</H2>
+
+
+<div class="container">
+<main class="px-4">
+    <h2 class="display-4 mb-4 mt-4">Place your order NORMAL</h2>
+    <form [formGroup]="dynamicForm">
+      <select id="endPointType" formControlName="type">
+        <option>http</option>
+        <option>sftp</option>
+        <option>api</option>
+       </select> 
+      @for (field of getFieldsByEndpointTypes(); track $index) {
+        <div class="form-group">
+        <label [for]="field.name">{{field.description}}
+            @if (field.required) {
+              <span class="text-danger">*</span>
+            }
+          </label>
+          <input 
+            [type]="field.type" 
+            [id]="field.name" 
+            [name]="field.name" 
+            [formControlName]="field.name"
+            class="form-control" 
+            [placeholder]="field.description"
+            > 
+        </div>
+      }
+      <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+    </form>
+    Errors:
+    <div class="alert alert-danger row" role="alert">
+      @for (field of errors; track $index) {
+        
+          <p>{{field}}</p>
+        
+      }
+    </div>
+  </main>
+</div>
